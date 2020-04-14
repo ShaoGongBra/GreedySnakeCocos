@@ -23,9 +23,6 @@ export default class NewClass extends cc.Component {
         y: 10
     }
 
-    data = {
-        score: 0
-    }
     // 地图数据
     map: any = {}
 
@@ -76,6 +73,19 @@ export default class NewClass extends cc.Component {
         return Object
             .keys(this.map)
             .map(item => item.split('_').map(pos => Number(pos)))
+    }
+
+    // 地图转数字
+    getMapNumber(x: number, y: number): number {
+        return (y - 1) * this.size.x + x
+    }
+
+    // 数字转地图
+    getNumerMap(num: number): any {
+        return {
+            x: (num - 1) % this.size.x + 1,
+            y: ((num - 1) / this.size.x | 0) + 1
+        }
     }
 
     init() {
@@ -182,19 +192,6 @@ export default class NewClass extends cc.Component {
         this.addPoint(pointLast.x, pointLast.y, cc.Color.BLUE)
     }
 
-    // 地图转数字
-    getMapNumber(x: number, y: number): number {
-        return (y - 1) * this.size.x + x
-    }
-
-    // 数字转地图
-    getNumerMap(num: number): any {
-        return {
-            x: (num - 1) % this.size.x + 1,
-            y: ((num - 1) / this.size.x | 0) + 1
-        }
-    }
-
     delFood() {
         const name = this.food.x + '_' + this.food.y
         const item = this.root.getChildByName(name)
@@ -226,7 +223,6 @@ export default class NewClass extends cc.Component {
         sp.spriteFrame = this.sprite
         sp.type = cc.Sprite.Type.SLICED
         node.parent = this.root
-        // this.root.addChild(node, 1)
         node.name = name
         node.width = baseX - 4
         node.height = baseY - 4
