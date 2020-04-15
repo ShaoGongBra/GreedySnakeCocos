@@ -33,12 +33,14 @@ export default class NewClass extends cc.Component {
     timer: any
 
     // 食物所在位置
-    food = {
+    food ={ 
         x: 0,
         y: 0
     }
 
     start() {
+        // const anim = this.root.getComponent(cc.Animation)
+        // anim.play('test')
         Object.defineProperty(this, 'score', {
             get: () => score,
             set: value => {
@@ -67,6 +69,10 @@ export default class NewClass extends cc.Component {
             default:
                 break
         }
+    }
+
+    onEnd(test) {
+        console.log(test)
     }
 
     getMap(): any {
